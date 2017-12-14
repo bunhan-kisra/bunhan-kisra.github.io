@@ -98,12 +98,12 @@ reader.onloadend = function() {
   console.log(bytesToSize(blob.size));
   document.getElementById("vii").src = base64data;
   console.log("sending");
-  mediaRecorder.pause();
-  console.log(base64data);
+  //mediaRecorder.pause();
+  //console.log(base64data);
   }
         //document.write('<a href="' + blobURL + '">' + blobURL + '</a>');
     };
-    mediaRecorder.start(1000);
+    mediaRecorder.start(500);
 }
 
 function onMediaError(e) {
