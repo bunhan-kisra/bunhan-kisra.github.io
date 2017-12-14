@@ -82,9 +82,18 @@ function onMediaSuccess(stream) {
     mediaRecorder.ondataavailable = function (blob) {
         // POST/PUT "Blob" using FormData/XHR2
         var blobURL = URL.createObjectURL(blob);
-        document.write('<a href="' + blobURL + '">' + blobURL + '</a>');
+		var reader = new FileReader();
+reader.readAsDataURL(blobURL); 
+reader.onloadend = function() {
+    base64data = reader.result;                
+    //console.log(base64data );
+	message = new Paho.MQTT.Message(base64data);
+  message.destinationName = "World";
+  client.send(message);
+  console.log("sending");
+        //document.write('<a href="' + blobURL + '">' + blobURL + '</a>');
     };
-    mediaRecorder.start(3000);
+    mediaRecorder.start(1000);
 }
 
 function onMediaError(e) {
