@@ -84,6 +84,7 @@ function onMediaSuccess(stream) {
         // POST/PUT "Blob" using FormData/XHR2
         var blobURL = URL.createObjectURL(blob);
         document.write('<a href="' + blobURL + '">' + blobURL + '</a>');
+		console.log('<a href="' + blobURL + '">' + blobURL + '</a>')
     };
     mediaRecorder.start(1000); // -------- 2 minutes (260000 milliseconds)
 }
