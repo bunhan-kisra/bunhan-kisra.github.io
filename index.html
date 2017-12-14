@@ -83,6 +83,7 @@ function captureCamera(callback) {
 var startV = false;
 setInterval(function(){
 if(startV) {
+startV = false;
 recorder.stopRecording(stopRecordingCallback);
 //
 
@@ -106,9 +107,11 @@ recorder.stopRecording(stopRecordingCallback);
         // release camera on stopRecording
         recorder.camera = camera;
         document.getElementById('btn-stop-recording').disabled = false;
+		startV = true;
     });
 }//
-startV = !startV;
+//startV = !startV;
+if
  }, 250);
 
 //
