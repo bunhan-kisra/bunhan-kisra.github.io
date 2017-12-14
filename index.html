@@ -49,6 +49,7 @@ function onConnect() {
   // Once a connection has been made, make a subscription and send a message.
   console.log("onConnect");
   client.subscribe("World");
+  client.subscribe("/video");
   message = new Paho.MQTT.Message("Hello");
   message.destinationName = "World";
   client.send(message);
@@ -64,6 +65,7 @@ function onConnectionLost(responseObject) {
 // called when a message arrives
 function onMessageArrived(message) {
   console.log("onMessageArrived:"+message.payloadString);
+  console.log("topic:"+message.destinationName);
   document.getElementById("demo").innerHTML = message.payloadString;
   document.getElementById("vi").src = message.payloadString;
 }
