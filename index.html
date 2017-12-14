@@ -81,13 +81,13 @@ function captureCamera(callback) {
     });
 }
 //
-var startV = false;
+var startV = true;
 setInterval(function(){
 if(startV) {
 //startV = false;
 //recorder.stopRecording(stopRecordingCallback);
 //
-	var blob = recorder.getBlob();//your blob data;
+	var blob = URL.createObjectURL(recorder.getBlob());//your blob data;
 
 var reader = new FileReader();
 
