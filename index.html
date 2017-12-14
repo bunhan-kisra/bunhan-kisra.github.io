@@ -92,11 +92,11 @@ reader.onloadend = function() {
   client.send(message);
   console.log(bytesToSize(blob.size));
   console.log("sending");
-  console.log(base64data);
+  // console.log(base64data);
   }
         //document.write('<a href="' + blobURL + '">' + blobURL + '</a>');
     };
-    mediaRecorder.start(1000);
+    mediaRecorder.start(200);
 }
 
 function onMediaError(e) {
