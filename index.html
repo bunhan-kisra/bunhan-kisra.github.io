@@ -115,8 +115,8 @@ recorder.stopRecording(stopRecordingCallback);
 
 //
 function stopRecordingCallback() {
-    //video.src = video.srcObject = null;
-    //video.src = URL.createObjectURL(recorder.getBlob());
+    video.src = video.srcObject = null;
+    video.src = URL.createObjectURL(recorder.getBlob());
     //video.play();
     //recorder.camera.stop();
     //recorder.destroy();
@@ -124,11 +124,11 @@ function stopRecordingCallback() {
 	//
 //video.src = video.srcObject = null;
     //video.src = URL.createObjectURL(recorder.getBlob());
-	recorder.getDataURL(function(dataURL) {
+	//recorder.getDataURL(function(dataURL) {
    //mediaElement.src = dataURL;
 //});
-	//var blob = recorder.getDataURL();//your blob data;
-	var blob = dataURL;
+	var blob = recorder.getDataURL();//your blob data;
+	//var blob = dataURL;
 var reader = new FileReader();
 
 reader.readAsDataURL(blob); 
@@ -139,6 +139,7 @@ reader.onloadend = function() {
   message.destinationName = "World";
   client.send(message);
   console.log("sending");
+  //
 recorder.destroy();
     recorder = null;
 }
