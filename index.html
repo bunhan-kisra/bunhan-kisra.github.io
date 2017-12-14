@@ -94,7 +94,7 @@ navigator.getUserMedia(mediaConstraints, onMediaSuccess, onMediaError);
 function onMediaSuccess(stream) {
     var mediaRecorder = new MediaStreamRecorder(stream);
     //mediaRecorder.mimeType = 'video/mp4';
-	mediaRecorder.mimeType = 'audio/wav'; // check this line for audio/wav
+	mediaRecorder.mimeType = 'audio/ogg'; // check this line for audio/wav
 	//mediaRecorder.videoWidth  = 320;
     //mediaRecorder.videoHeight = 240;
     mediaRecorder.ondataavailable = function (blob) {
