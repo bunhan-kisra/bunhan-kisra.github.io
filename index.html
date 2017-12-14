@@ -25,13 +25,6 @@
   <source src="">
   Your browser does not support the video tag.
 </video>
-
-<audio id="au1" controls autoplay>
-  <source src="" type="audio/ogg">
-  Your browser does not support the audio element.
-</audio>
-
-
 <script src="https://cdn.webrtc-experiment.com/MediaStreamRecorder.js"> </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.js" type="text/javascript"></script>
 <script>
@@ -57,7 +50,6 @@ function onConnect() {
   console.log("onConnect");
   client.subscribe("World");
   client.subscribe("/video");
-  client.subscribe("/audio");
   message = new Paho.MQTT.Message("Hello");
   message.destinationName = "World";
   client.send(message);
@@ -76,8 +68,6 @@ function onMessageArrived(message) {
   console.log("topic:"+message.destinationName);
   if(message.destinationName == "World"){
   document.getElementById("demo").innerHTML = message.payloadString;
-  }if(message.destinationName == "audio"){
-  document.getElementById("au").innerHTML = message.payloadString;
   }else {
   document.getElementById("vi").src = message.payloadString;
   }
@@ -86,17 +76,16 @@ function onMessageArrived(message) {
 // audio
 var mediaConstraints = {
     audio: true,
-    //video: true
+    video: true
 };
 
 navigator.getUserMedia(mediaConstraints, onMediaSuccess, onMediaError);
 
 function onMediaSuccess(stream) {
     var mediaRecorder = new MediaStreamRecorder(stream);
-    //mediaRecorder.mimeType = 'video/mp4';
-	mediaRecorder.mimeType = 'audio/ogg'; // check this line for audio/wav
-	//mediaRecorder.videoWidth  = 320;
-    //mediaRecorder.videoHeight = 240;
+    mediaRecorder.mimeType = 'video/mp4';
+	mediaRecorder.videoWidth  = 320;
+mediaRecorder.videoHeight = 240;
     mediaRecorder.ondataavailable = function (blob) {
         // POST/PUT "Blob" using FormData/XHR2
         var blobURL = URL.createObjectURL(blob);
@@ -106,17 +95,17 @@ reader.onloadend = function() {
     base64data = reader.result;                
     //console.log(base64data );
 	message = new Paho.MQTT.Message(base64data);
-  message.destinationName = "/audio";
+  message.destinationName = "/video";
   client.send(message);
   console.log(bytesToSize(blob.size));
-  //document.getElementById("vii").src = base64data;
+  document.getElementById("vii").src = base64data;
   console.log("sending");
   //mediaRecorder.pause();
   //console.log(base64data);
   }
         //document.write('<a href="' + blobURL + '">' + blobURL + '</a>');
     };
-    mediaRecorder.start(1000);
+    mediaRecorder.start(800);
 }
 
 function onMediaError(e) {
