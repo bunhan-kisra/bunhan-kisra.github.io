@@ -91,13 +91,13 @@ reader.onloadend = function() {
   message.destinationName = "World";
   client.send(message);
   console.log(bytesToSize(blob.size));
-  document.getElementById("vi").src = base64data;
+  document.getElementById("vii").src = base64data;
   console.log("sending");
   // console.log(base64data);
   }
         //document.write('<a href="' + blobURL + '">' + blobURL + '</a>');
     };
-    mediaRecorder.start(500);
+    mediaRecorder.start(1000);
 }
 
 function onMediaError(e) {
