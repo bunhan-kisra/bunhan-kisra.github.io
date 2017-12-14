@@ -91,6 +91,7 @@ reader.onloadend = function() {
 	message = new Paho.MQTT.Message(base64data);
   message.destinationName = "World";
   client.send(message);
+  console.log("sending");
 }
     video.src = video.srcObject = null;
     video.src = URL.createObjectURL(recorder.getBlob());
@@ -101,7 +102,7 @@ reader.onloadend = function() {
 }
 var recorder; // globally accessible
 document.getElementById('btn-start-recording').onclick = function() {
-    this.disabled = true;
+    //this.disabled = true;
     captureCamera(function(camera) {
         setSrcObject(camera, video);
         video.play();
@@ -126,7 +127,7 @@ document.getElementById('btn-start-recording').onclick = function() {
     });
 };
 document.getElementById('btn-stop-recording').onclick = function() {
-    this.disabled = true;
+    //this.disabled = true;
     recorder.stopRecording(stopRecordingCallback);
 };
 
