@@ -87,7 +87,9 @@ if(startV) {
 //startV = false;
 //recorder.stopRecording(stopRecordingCallback);
 //
-	var blob = recorder.getBlob();//your blob data;
+	//var blob = recorder.getBlob();//your blob data;
+	// var blob = video.srcObject = null;
+     var blob = URL.createObjectURL(recorder.getBlob());
 
 var reader = new FileReader();
 
