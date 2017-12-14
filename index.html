@@ -83,7 +83,7 @@ function onMediaSuccess(stream) {
         // POST/PUT "Blob" using FormData/XHR2
         var blobURL = URL.createObjectURL(blob);
 		var reader = new FileReader();
-reader.readAsDataURL(blobURL); 
+reader.readAsDataURL(blob); 
 reader.onloadend = function() {
     base64data = reader.result;                
     //console.log(base64data );
