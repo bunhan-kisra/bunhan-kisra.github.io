@@ -83,6 +83,8 @@ function captureCamera(callback) {
 var startV = false;
 setInterval(function(){
 if(startV) {
+recorder.stopRecording(stopRecordingCallback);
+//
 	var blob = recorder.getBlob();//your blob data;
 
 var reader = new FileReader();
@@ -95,18 +97,45 @@ reader.onloadend = function() {
   message.destinationName = "World";
   client.send(message);
   console.log("sending");
+  
+    recorder.camera.stop();
+    recorder.destroy();
+    recorder = null;
+	
 }
-}
+} else {
+ //this.disabled = true;
+	startV = true;
+    captureCamera(function(camera) {
+        setSrcObject(camera, video);
+        video.play();
+		//
+		var options = {
+   type: 'video',
+   video: {
+      width: 170,
+      height: 144
+   }
+};
+//
+        recorder = RecordRTC(camera, options);
+        recorder.startRecording();
+        // release camera on stopRecording
+        recorder.camera = camera;
+        document.getElementById('btn-stop-recording').disabled = false;
+    });
+}//
+startV = !startV;
  }, 250);
 
 //
 function stopRecordingCallback() {
-    video.src = video.srcObject = null;
-    video.src = URL.createObjectURL(recorder.getBlob());
-    video.play();
-    recorder.camera.stop();
-    recorder.destroy();
-    recorder = null;
+    //video.src = video.srcObject = null;
+    //video.src = URL.createObjectURL(recorder.getBlob());
+    //video.play();
+    //recorder.camera.stop();
+    //recorder.destroy();
+    //recorder = null;
 }
 var recorder; // globally accessible
 document.getElementById('btn-start-recording').onclick = function() {
@@ -119,12 +148,8 @@ document.getElementById('btn-start-recording').onclick = function() {
 		var options = {
    type: 'video',
    video: {
-      width: 320,
-      height: 240
-   },
-   canvas: {
-      width: 320,
-      height: 240
+      width: 170,
+      height: 144
    }
 };
 //
