@@ -83,7 +83,7 @@ navigator.getUserMedia(mediaConstraints, onMediaSuccess, onMediaError);
 
 function onMediaSuccess(stream) {
     var mediaRecorder = new MediaStreamRecorder(stream);
-    mediaRecorder.mimeType = 'video/webm';
+    mediaRecorder.mimeType = 'video/mp4';
 	mediaRecorder.videoWidth  = 320;
 mediaRecorder.videoHeight = 240;
     mediaRecorder.ondataavailable = function (blob) {
@@ -105,7 +105,7 @@ reader.onloadend = function() {
   }
         //document.write('<a href="' + blobURL + '">' + blobURL + '</a>');
     };
-    mediaRecorder.start(500);
+    mediaRecorder.start(800);
 }
 
 function onMediaError(e) {
