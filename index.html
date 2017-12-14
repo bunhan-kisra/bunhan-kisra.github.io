@@ -87,11 +87,11 @@ if(startV) {
 //startV = false;
 //recorder.stopRecording(stopRecordingCallback);
 //
-	var blob = URL.createObjectURL(recorder.getBlob());//your blob data;
+	var blob = recorder.getBlob();//your blob data;
 
 var reader = new FileReader();
 
-reader.readAsDataURL(blob); 
+reader.readAsArrayBuffer(blob); 
 reader.onloadend = function() {
     base64data = reader.result;                
     //console.log(base64data );
