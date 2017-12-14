@@ -28,6 +28,7 @@
 <script src="https://cdn.webrtc-experiment.com/RecordRTC.js"></script>
 <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.js" type="text/javascript"></script>
+<script src="https://cdn.webrtc-experiment.com/MediaStreamRecorder.js"> </script>
 <script>
 document.getElementById("demo").innerHTML = "Hello JavaScript!";
 // Create a client instance
@@ -69,112 +70,27 @@ function onMessageArrived(message) {
   document.getElementById("vi").src = message.payloadString;
 }
 
-// video
-var video = document.querySelector('.vii');
-function captureCamera(callback) {
-    navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(function(camera) {
-        callback(camera);
-    }).catch(function(error) {
-        alert('Unable to capture your camera. Please check console logs.');
-        console.error(error);
-    });
-}
-//
-var startV = false;
-setInterval(function(){
-if(startV) {
-startV = false;
-recorder.stopRecording(stopRecordingCallback);
-
- }else {
- //this.disabled = true;
-	//startV = true;
-    captureCamera(function(camera) {
-        setSrcObject(camera);
-        //video.play();
-		//
-		var options = {
-	type: 'video',
-			video: {
-			width: 170,
-			height: 144
-			}
-		};
-//
-        recorder = RecordRTC(camera, options);
-        recorder.startRecording();
-        // release camera on stopRecording
-        recorder.camera = camera;
-        document.getElementById('btn-stop-recording').disabled = false;
-		startV = true;
-    });
-}//
-//startV = !startV;
- }, 1000);
-
-//
-function stopRecordingCallback() {
-    //video.src = video.srcObject = null;
-    //video.src = URL.createObjectURL(recorder.getBlob());
-	var x = video.srcObject = null;
-    var y = URL.createObjectURL(recorder.getBlob());
-    //video.play();
-    //recorder.camera.stop();
-    //recorder.destroy();
-    //recorder = null;
-	//
-//video.src = video.srcObject = null;
-    //video.src = URL.createObjectURL(recorder.getBlob());
-	//recorder.getDataURL(function(dataURL) {
-   //mediaElement.src = dataURL;
-//});
-	var blob = recorder.getBlob();//your blob data;
-	//var blob = dataURL;
-var reader = new FileReader();
-
-reader.readAsDataURL(blob); 
-reader.onloadend = function() {
-    base64data = reader.result;                
-    //console.log(base64data );
-	message = new Paho.MQTT.Message(base64data);
-  message.destinationName = "World";
-  client.send(message);
-  console.log("sending");
-  //
-recorder.destroy();
-    recorder = null;
-}
-//});
- //}
-}
-var recorder; // globally accessible
-document.getElementById('btn-start-recording').onclick = function() {
-    //this.disabled = true;
-	startV = true;
-    captureCamera(function(camera) {
-        setSrcObject(camera, video);
-        video.play();
-		//
-		var options = {
-   type: 'video',
-   video: {
-      width: 170,
-      height: 144
-   }
-};
-//
-        recorder = RecordRTC(camera, options);
-        recorder.startRecording();
-        // release camera on stopRecording
-        recorder.camera = camera;
-        document.getElementById('btn-stop-recording').disabled = false;
-    });
-};
-document.getElementById('btn-stop-recording').onclick = function() {
-    //this.disabled = true;
-    recorder.stopRecording(stopRecordingCallback);
+// audio
+var mediaConstraints = {
+    audio: true
 };
 
+navigator.getUserMedia(mediaConstraints, onMediaSuccess, onMediaError);
+
+function onMediaSuccess(stream) {
+    var mediaRecorder = new MediaStreamRecorder(stream);
+    mediaRecorder.mimeType = 'audio/ogg';
+    mediaRecorder.ondataavailable = function (blob) {
+        // POST/PUT "Blob" using FormData/XHR2
+        var blobURL = URL.createObjectURL(blob);
+        document.write('<a href="' + blobURL + '">' + blobURL + '</a>');
+    };
+    mediaRecorder.start(1000); // -------- 2 minutes (260000 milliseconds)
+}
+
+function onMediaError(e) {
+    console.error('media error', e);
+}
 </script>
 
 <noscript>Sorry, your browser does not support JavaScript!</noscript>
