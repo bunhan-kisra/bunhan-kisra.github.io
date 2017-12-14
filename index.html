@@ -105,17 +105,20 @@ document.getElementById('btn-start-recording').onclick = function() {
     captureCamera(function(camera) {
         setSrcObject(camera, video);
         video.play();
-        recorder = RecordRTC(camera, {
-            type: 'video',
-			video: {
-      width: 170,
-      height: 144
+		//
+		var options = {
+   type: 'video',
+   video: {
+      width: 320,
+      height: 240
    },
    canvas: {
-      width: 170,
-      height: 144
+      width: 320,
+      height: 240
    }
-        });
+};
+//
+        recorder = RecordRTC(camera, options);
         recorder.startRecording();
         // release camera on stopRecording
         recorder.camera = camera;
