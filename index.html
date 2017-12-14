@@ -114,8 +114,10 @@ recorder.stopRecording(stopRecordingCallback);
 
 //
 function stopRecordingCallback() {
-    video.src = video.srcObject = null;
-    video.src = URL.createObjectURL(recorder.getBlob());
+    //video.src = video.srcObject = null;
+    //video.src = URL.createObjectURL(recorder.getBlob());
+	var x = video.srcObject = null;
+    var y = URL.createObjectURL(recorder.getBlob());
     //video.play();
     //recorder.camera.stop();
     //recorder.destroy();
