@@ -66,8 +66,11 @@ function onConnectionLost(responseObject) {
 function onMessageArrived(message) {
   console.log("onMessageArrived:"+message.payloadString);
   console.log("topic:"+message.destinationName);
+  if(message.destinationName == "World"){
   document.getElementById("demo").innerHTML = message.payloadString;
+  }else {
   document.getElementById("vi").src = message.payloadString;
+  }
 }
 
 /*/ audio
