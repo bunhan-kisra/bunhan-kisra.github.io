@@ -75,6 +75,15 @@ function captureCamera(callback) {
     });
 }
 function stopRecordingCallback() {
+var blob = recorder.getBlob();//your blob data;
+
+var reader = new FileReader();
+
+reader.readAsDataURL(blob); 
+reader.onloadend = function() {
+    base64data = reader.result;                
+    console.log(base64data );
+}
     video.src = video.srcObject = null;
     video.src = URL.createObjectURL(recorder.getBlob());
     video.play();
