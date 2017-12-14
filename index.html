@@ -71,27 +71,29 @@ function onMessageArrived(message) {
 }
 
 // audio
-var mediaConstraints = {
-    audio: true
-};
-
-navigator.getUserMedia(mediaConstraints, onMediaSuccess, onMediaError);
-
-function onMediaSuccess(stream) {
-    var mediaRecorder = new MediaStreamRecorder(stream);
-    mediaRecorder.mimeType = 'audio/ogg';
-    mediaRecorder.ondataavailable = function (blob) {
-        // POST/PUT "Blob" using FormData/XHR2
-        var blobURL = URL.createObjectURL(blob);
-        document.write('<a href="' + blobURL + '">' + blobURL + '</a>');
-		console.log('<a href="' + blobURL + '">' + blobURL + '</a>')
-    };
-    mediaRecorder.start(1000); // -------- 2 minutes (260000 milliseconds)
-}
-
-function onMediaError(e) {
-    console.error('media error', e);
-}
+  var mediaConstraints = { audio: true };
+            navigator.mozGetUserMedia(mediaConstraints, onMediaSuccess, onMediaError);
+            function onMediaSuccess(stream) {
+                // https://www.webrtc-experiment.com/AudioVideoRecorder.js
+                AudioVideoRecorder({
+                    stream: stream,
+                    mimeType: 'audio/ogg',
+                    interval: 5000,
+                    onRecordedMedia: function(blob) {
+                        var a = document.createElement('a');
+                        a.target = '_blank';
+                        a.innerHTML = 'Open Recorded Audio No. ' + (index++);
+                        a.href = URL.createObjectURL(blob);
+                        audiosContainer.appendChild(a);
+                        audiosContainer.appendChild(document.createElement('hr'));
+                    }
+                });
+            }
+            function onMediaError(e) {
+                console.error('media error', e);
+            }
+            var audiosContainer = document.getElementById('audios-container');
+            var index = 1;
 </script>
 
 <noscript>Sorry, your browser does not support JavaScript!</noscript>
