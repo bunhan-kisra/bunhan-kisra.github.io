@@ -21,7 +21,9 @@
 
 <hr>
 <video class="vii" controls autoplay></video>
-<video id="vi"controls autoplay loop>
+<video id="vi"controls autoplay>
+  <source src="">
+  Your browser does not support the video tag.
 </video>
 <script src="https://cdn.webrtc-experiment.com/RecordRTC.js"></script>
 <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
@@ -64,7 +66,7 @@ function onConnectionLost(responseObject) {
 function onMessageArrived(message) {
   console.log("onMessageArrived:"+message.payloadString);
   //document.getElementById("demo").innerHTML = message.payloadString;
-  document.getElementById("vi").innerHTML = message.payloadString;
+  document.getElementById("vi").src = message.payloadString;
 }
 
 // video
