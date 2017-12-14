@@ -95,12 +95,12 @@ recorder.stopRecording(stopRecordingCallback);
         //video.play();
 		//
 		var options = {
-   type: 'video',
-   video: {
-      width: 170,
-      height: 144
-   }
-};
+			type: 'video',
+			video: {
+			width: 170,
+			height: 144
+			}
+		};
 //
         recorder = RecordRTC(camera, options);
         recorder.startRecording();
@@ -112,7 +112,7 @@ recorder.stopRecording(stopRecordingCallback);
 }//
 //startV = !startV;
 if
- }, 250);
+ }, 1000);
 
 //
 function stopRecordingCallback() {
