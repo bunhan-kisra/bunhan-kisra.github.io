@@ -89,7 +89,11 @@ if(startV) {
 //
 //video.src = video.srcObject = null;
     //video.src = URL.createObjectURL(recorder.getBlob());
-	var blob = recorder.getDataURL();//your blob data;
+	recorder.getDataURL(function(dataURL) {
+   //mediaElement.src = dataURL;
+//});
+	//var blob = recorder.getDataURL();//your blob data;
+	var blob = dataURL;
 var reader = new FileReader();
 
 reader.readAsDataURL(blob); 
@@ -101,7 +105,9 @@ reader.onloadend = function() {
   client.send(message);
   console.log("sending");
 
-} /*else {
+}
+});
+ /*else {
  //this.disabled = true;
 	//startV = true;
     captureCamera(function(camera) {
