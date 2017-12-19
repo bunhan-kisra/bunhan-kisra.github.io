@@ -31,7 +31,7 @@
     document.getElementById("demo").innerHTML = "Hello JavaScript!";
     // Create a client instance
     client = new Paho.MQTT.Client("kisradev.com", Number(1884), "/ws", "clientId1");
-
+    var f = true;
     // set callback handlers <video controls autoplay></video>
     client.onConnectionLost = onConnectionLost;
     client.onMessageArrived = onMessageArrived;
@@ -64,13 +64,21 @@
 
     // called when a message arrives
     function onMessageArrived(message) {
-        console.log("onMessageArrived:"+message.payloadString);
+        // console.log("onMessageArrived:"+message.payloadString);
         console.log("topic:"+message.destinationName);
         if(message.destinationName == "World"){
+            console.log("onMessageArrived:"+message.payloadString);
             document.getElementById("demo").innerHTML = message.payloadString;
         }else {
             console.log('revers msg size: %s', bytesToSize(message.size));
-            document.getElementById("vi").src = message.payloadString;
+            if (f) {
+                f = false
+                setTimeout(function () {
+                    document.getElementById("vi").src = message.payloadString;
+                }, 500)
+            } else {
+                document.getElementById("vi").src = message.payloadString;
+            }
         }
     }
 
@@ -106,7 +114,7 @@
             }
             //document.write('<a href="' + blobURL + '">' + blobURL + '</a>');
         };
-        mediaRecorder.start(800);
+        mediaRecorder.start(500);
     }
 
     function onMediaError(e) {
