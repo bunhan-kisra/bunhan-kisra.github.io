@@ -10,7 +10,7 @@
 <html>
 <body>
 
-<p id="demo"></p
+<p id="demo"></p>
 <title>Video Recording | RecordRTC</title>
 <h1>Simple Video Recording using RecordRTC</h1>
 
@@ -70,12 +70,12 @@
             console.log("onMessageArrived:"+message.payloadString);
             document.getElementById("demo").innerHTML = message.payloadString;
         }else {
-            console.log('revers msg size: %s', bytesToSize(message.size));
+            console.log('revers msg size: %s', bytesToSize(message.payloadString.size));
             if (f) {
                 f = false
                 setTimeout(function () {
                     document.getElementById("vi").src = message.payloadString;
-                }, 500)
+                }, 100)
             } else {
                 document.getElementById("vi").src = message.payloadString;
             }
@@ -93,6 +93,10 @@
     function onMediaSuccess(stream) {
         var mediaRecorder = new MediaStreamRecorder(stream);
         mediaRecorder.mimeType = 'video/mp4';
+        // force webp based webm encoder on all browsers
+        mediaRecorder.recorderType = WhammyRecorder;
+        // only chrome---whilst using WhammyRecorder
+        mediaRecorder.quality = .5;
         mediaRecorder.videoWidth  = 320;
         mediaRecorder.videoHeight = 240;
         mediaRecorder.ondataavailable = function (blob) {
@@ -114,7 +118,7 @@
             }
             //document.write('<a href="' + blobURL + '">' + blobURL + '</a>');
         };
-        mediaRecorder.start(500);
+        mediaRecorder.start(1000);
     }
 
     function onMediaError(e) {
