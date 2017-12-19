@@ -92,17 +92,13 @@
 
     function onMediaSuccess(stream) {
         var mediaRecorder = new MediaStreamRecorder(stream);
-        mediaRecorder.mimeType = 'video/mp4';
+        mediaRecorder.mimeType = 'video/webm';
         // force webp based webm encoder on all browsers
-        // mediaRecorder.recorderType = WhammyRecorder;
+        mediaRecorder.recorderType = MediaRecorderWrapper;
         // only chrome---whilst using WhammyRecorder
-        // mediaRecorder.quality = .5;
-        mediaRecorder.canvas = {
-            width: 320,
-            height: 240
-        };
-        // mediaRecorder.videoWidth  = 320;
-        // mediaRecorder.videoHeight = 240;
+        mediaRecorder.quality = .5;
+        mediaRecorder.videoWidth  = 320;
+        mediaRecorder.videoHeight = 240;
         mediaRecorder.ondataavailable = function (blob) {
             // POST/PUT "Blob" using FormData/XHR2
             // var blobURL = URL.createObjectURL(blob);
