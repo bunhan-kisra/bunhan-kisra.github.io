@@ -21,7 +21,7 @@
 
 <hr>
 <video id="vii" controls autoplay> <source src=""> </video>
-<video id="vi"controls autoplay>
+<video id="vi" controls autoplay>
   <source src="">
   Your browser does not support the video tag.
 </video>
@@ -69,6 +69,7 @@
         if(message.destinationName == "World"){
             document.getElementById("demo").innerHTML = message.payloadString;
         }else {
+            console.log('revers msg size: %s', bytesToSize(message.size));
             document.getElementById("vi").src = message.payloadString;
         }
     }
