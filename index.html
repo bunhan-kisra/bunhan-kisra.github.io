@@ -87,8 +87,17 @@
         audio: true,
         video: true
     };
+    var config = {
+        mimeType: 'video/webm', // vp8, vp9, h264, mkv, opus/vorbis
+        audioBitsPerSecond : 256 * 8 * 1024,
+        videoBitsPerSecond : 256 * 8 * 1024,
+        bitsPerSecond: 16 * 8 * 1024,  // if this is provided, skip above two
+        checkForInactiveTracks: true,
+        timeSlice: 500, // concatenate intervals based blobs
+        ignoreMutedMedia: true
+    }
 
-    navigator.getUserMedia(mediaConstraints, onMediaSuccess, onMediaError);
+    navigator.getUserMedia(config, onMediaSuccess, onMediaError);
 
     function onMediaSuccess(stream) {
         var mediaRecorder = new MediaStreamRecorder(stream);
@@ -114,7 +123,7 @@
             }
             //document.write('<a href="' + blobURL + '">' + blobURL + '</a>');
         };
-        mediaRecorder.start(600);
+        // mediaRecorder.start(600);
     }
 
     function onMediaError(e) {
