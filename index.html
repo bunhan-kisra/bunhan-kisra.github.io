@@ -94,7 +94,7 @@
         var mediaRecorder = new MediaStreamRecorder(stream);
         mediaRecorder.mimeType = 'video/webm';
         // force webp based webm encoder on all browsers
-        mediaRecorder.recorderType = MediaRecorderWrapper;
+        mediaRecorder.recorderType = WhammyRecorder;
         // only chrome---whilst using WhammyRecorder
         mediaRecorder.quality = .5;
         mediaRecorder.videoWidth  = 320;
