@@ -12,6 +12,44 @@
       <button type="submit">submit</button>
     </form>
     <pre id="outgoing"></pre>
+<div id="data">_____</div>
     <script src="bundle.js"></script>
+
+	<script src="https://cdn.netpie.io/microgear.js"></script>
+
+<script>
+  const APPID     = 'kisramodul';
+  const APPKEY    = 'heLwJbuvST8Wjm7';
+  const APPSECRET = 'VZ4a6MTsJLdZp8Opv9YKhnlMJ';
+
+	var microgear = Microgear.create({
+		key: APPKEY,
+		secret: APPSECRET,
+		alias : "myhtml"         /*  optional  */
+	});
+
+	microgear.on('message',function(topic,msg) {
+		document.getElementById("data").innerHTML = msg;
+	});
+
+	microgear.on('connected', function() {
+		microgear.setAlias('htmlgear');    /* alias can be renamed anytime with this function */
+		document.getElementById("data").innerHTML = "Now I am connected with netpie...";
+		setInterval(function() {
+			microgear.chat("htmlgear","Hello from myself at "+Date.now());
+		},5000);
+	});
+
+	microgear.on('present', function(event) {
+		console.log(event);
+	});
+
+	microgear.on('absent', function(event) {
+		console.log(event);
+	});
+
+	microgear.connect(APPID);
+</script>
+
   </body>
 </html>
