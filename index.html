@@ -32,6 +32,8 @@
   const APPKEY    = 'heLwJbuvST8Wjm7';
   const APPSECRET = 'VZ4a6MTsJLdZp8Opv9YKhnlMJ';
 
+  var send = false;
+
 	var microgear = Microgear.create({
 		key: APPKEY,
 		secret: APPSECRET,
@@ -50,10 +52,11 @@
 		setInterval(function() {
 			// microgear.chat("htmlgear","Hello from myself at "+Date.now());
             var mySinnal = document.getElementById("outgoing").innerText;
-            if (mySinnal !== '') {
+            if (mySinnal !== '' && send === false) {
                 var mid = document.getElementById("myId").value;
                 microgear.publish("/video/temp/"+mid,mySinnal, true);
                 console.log("publish to /video/temp/"+mid);
+                send = true;
             }
 		},2000);
 	});
