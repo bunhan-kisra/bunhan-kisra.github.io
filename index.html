@@ -55,11 +55,16 @@
 		idd = Math.random().toString()
 		document.getElementById("myId").innerHTML = idd;
 		microgear.setAlias(idd);
+		console.log('my name'+idd)
 
 		setInterval(function() {
-		    if (mySinnal === '')
+		    if (mySinnal === ''){
+		        mySinnal = document.getElementById("outgoing").innerText;
+            } else {
+		        console.log("mySinnal data length"+mySinnal.length);
+            }
 			// microgear.chat("htmlgear","Hello from myself at "+Date.now());
-            mySinnal = document.getElementById("outgoing").innerText;
+            // mySinnal = document.getElementById("outgoing").innerText;
             // if (mySinnal !== '' && send === false) {
             //     var mid = document.getElementById("myId").value;
             //     microgear.publish("/video/temp/"+mid,mySinnal, true);
