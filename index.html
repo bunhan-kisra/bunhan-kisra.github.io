@@ -39,7 +39,7 @@
 	var microgear = Microgear.create({
 		key: APPKEY,
 		secret: APPSECRET,
-		alias : "myhtml"         /*  optional  */
+		alias : Math.random().toString()         /*  optional  */
 	});
 
 	microgear.on('message',function(topic,msg) {
