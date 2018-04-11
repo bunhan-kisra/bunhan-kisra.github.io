@@ -54,7 +54,8 @@
 		document.getElementById("data").innerHTML = "Now I am connected with netpie...";
 		idd = Math.random().toString()
 		document.getElementById("myId").innerHTML = idd;
-		microgear.setAlias(idd);
+		// microgear.setAlias(idd);
+        microgear.subscribe("/name/"+idd);
 		console.log('my name'+idd)
 
 		setInterval(function() {
@@ -89,7 +90,8 @@
     var x = document.getElementById("myTextarea").value;
     microgear.subscribe("/video/temp/"+x);
     console.log("/video/temp/"+x);
-    microgear.chat(x.toString(),"getSinnal");
+    // microgear.chat(x.toString(),"getSinnal");
+        microgear.publish("/name/"+x, "getSinnal");
 }
 </script>
 
