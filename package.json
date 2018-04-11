@@ -1,0 +1,6 @@
+{
+  "name": "foo",
+  "dependencies": {
+    "simple-peer": "^9.0.0"
+  }
+}
