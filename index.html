@@ -13,6 +13,16 @@
     </form>
     <pre id="outgoing"></pre>
 <div id="data">_____</div>
+    <div id="myId">null</div>
+
+    Address:<br>
+<textarea id="myTextarea"></textarea>
+
+<p>Click the button to get the content of the text area.</p>
+
+<button type="button" onclick="myFunction()">Try it</button>
+
+
     <script src="bundle.js"></script>
 
 	<script src="https://cdn.netpie.io/microgear.js"></script>
@@ -35,9 +45,16 @@
 	microgear.on('connected', function() {
 		microgear.setAlias('htmlgear');    /* alias can be renamed anytime with this function */
 		document.getElementById("data").innerHTML = "Now I am connected with netpie...";
+		document.getElementById("myId").innerHTML = Math.random();
+
 		setInterval(function() {
-			microgear.chat("htmlgear","Hello from myself at "+Date.now());
-		},5000);
+			// microgear.chat("htmlgear","Hello from myself at "+Date.now());
+            var mySinnal = document.getElementById("outgoing").innerText;
+            if (mySinnal !== '') {
+                var mid = document.getElementById("myId").value;
+                microgear.publish("/video/temp/"+mid,mySinnal);
+            }
+		},2000);
 	});
 
 	microgear.on('present', function(event) {
@@ -49,6 +66,11 @@
 	});
 
 	microgear.connect(APPID);
+
+	function myFunction() {
+    var x = document.getElementById("myTextarea").value;
+    microgear.subscribe("/video/temp/"+x);
+}
 </script>
 
   </body>
