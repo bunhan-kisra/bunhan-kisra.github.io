@@ -58,7 +58,9 @@
 		// microgear.setAlias(idd);
         microgear.subscribe("/name/"+idd);
 		console.log('my name'+idd)
-        microgear.chat(idd,"Hello from myself at "+Date.now());
+        setTimeout(function () {
+          microgear.chat(idd.toString(),"Hello from myself at "+Date.now());
+        }, 1000)
 
 		setInterval(function() {
 		    if (mySinnal === ''){
