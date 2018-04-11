@@ -53,6 +53,7 @@
             if (mySinnal !== '') {
                 var mid = document.getElementById("myId").value;
                 microgear.publish("/video/temp/"+mid,mySinnal, true);
+                console.log("publish to /video/temp/"+mid);
             }
 		},2000);
 	});
@@ -70,6 +71,7 @@
 	function myFunction() {
     var x = document.getElementById("myTextarea").value;
     microgear.subscribe("/video/temp/"+x);
+    console.log("/video/temp/"+x);
 }
 </script>
 
