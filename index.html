@@ -52,7 +52,7 @@
             var mySinnal = document.getElementById("outgoing").innerText;
             if (mySinnal !== '') {
                 var mid = document.getElementById("myId").value;
-                microgear.publish("/video/temp/"+mid,mySinnal);
+                microgear.publish("/video/temp/"+mid,mySinnal, true);
             }
 		},2000);
 	});
