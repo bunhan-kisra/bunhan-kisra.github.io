@@ -1,4 +1,34 @@
 var Peer = require('simple-peer')
+//
+var MicroGear = require('microgear');
+
+const APPID  = 'kisramodul';
+const KEY    = 'heLwJbuvST8Wjm7';
+const SECRET = 'VZ4a6MTsJLdZp8Opv9YKhnlMJ';
+
+var microgear = MicroGear.create({
+    key : KEY,
+    secret : SECRET
+});
+
+microgear.connect(APPID);
+
+microgear.on('connected', function() {
+    console.log('Connected...');
+    microgear.setAlias("mygear");
+    setInterval(function() {
+        microgear.chat('mygear', 'Hello world.'+ new Date());
+    },1000);
+});
+
+microgear.on('message', function(topic,body) {
+    console.log('incoming : '+topic+' : '+body);
+});
+
+microgear.on('closed', function() {
+    console.log('Closed...');
+});
+
 // get video/voice stream
 navigator.getUserMedia({ video: true, audio: true }, gotMedia, function () {})
 
@@ -15,6 +45,11 @@ p.on('signal', function (data) {
 document.querySelector('form').addEventListener('submit', function (ev) {
   ev.preventDefault()
   p.signal(JSON.parse(document.querySelector('#incoming').value))
+})
+document.querySelector('button').addEventListener('click', function (ev) {
+  ev.preventDefault()
+  // p.signal(JSON.parse(document.querySelector('#incoming').value))
+    console.log(document.querySelector('#myTextarea').value)
 })
 
 p.on('connect', function () {

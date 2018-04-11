@@ -1,6 +1,7 @@
 {
   "name": "foo",
   "dependencies": {
+    "microgear": "^0.8.1",
     "simple-peer": "^9.0.0"
   }
 }

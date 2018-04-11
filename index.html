@@ -20,84 +20,10 @@
 
 <p>Click the button to get the content of the text area.</p>
 
-<button type="button" onclick="myFunction()">Try it</button>
+<button type="button">Try it</button>
 
 
     <script src="bundle.js"></script>
-
-	<script src="https://cdn.netpie.io/microgear.js"></script>
-
-<script>
-  const APPID     = 'kisramodul';
-  const APPKEY    = 'heLwJbuvST8Wjm7';
-  const APPSECRET = 'VZ4a6MTsJLdZp8Opv9YKhnlMJ';
-
-  var send = false;
-  var mySinnal = '';
-  var idd = Math.random().toString();
-
-	var microgear = Microgear.create({
-		key: APPKEY,
-		secret: APPSECRET,
-		alias : idd         /*  optional  */
-	});
-
-	microgear.on('message',function(topic,msg) {
-		document.getElementById("data").innerHTML = msg;
-		console.log(msg.toString())
-		if (msg.toString() === 'getSinnal') {
-		    microgear.publish("/video/temp/" + idd, mySinnal);
-        }
-	});
-
-	microgear.on('connected', function() {
-		// microgear.setAlias('htmlgear');    /* alias can be renamed anytime with this function */
-		document.getElementById("data").innerHTML = "Now I am connected with netpie...";
-		// idd = Math.random().toString()
-		document.getElementById("myId").innerHTML = idd;
-		// microgear.setAlias(idd);
-        microgear.subscribe("/name/"+idd);
-		console.log('my name'+idd)
-        setTimeout(function () {
-          microgear.chat(idd.toString(),"Hello from myself at "+Date.now());
-        }, 1000)
-
-		setInterval(function() {
-		    if (mySinnal === ''){
-		        mySinnal = document.getElementById("outgoing").innerText;
-            } else {
-		        console.log("mySinnal data length"+mySinnal.length);
-            }
-			// microgear.chat("htmlgear","Hello from myself at "+Date.now());
-            // mySinnal = document.getElementById("outgoing").innerText;
-            // if (mySinnal !== '' && send === false) {
-            //     var mid = document.getElementById("myId").value;
-            //     microgear.publish("/video/temp/"+mid,mySinnal, true);
-            //     console.log("publish to /video/temp/1");
-            //     console.log("data length"+mySinnal.length);
-            //     send = true;
-            // }
-		},2000);
-	});
-
-	microgear.on('present', function(event) {
-		console.log(event);
-	});
-
-	microgear.on('absent', function(event) {
-		console.log(event);
-	});
-
-	microgear.connect(APPID);
-
-	function myFunction() {
-    var x = document.getElementById("myTextarea").value;
-    // microgear.subscribe("/video/temp/"+x);
-    console.log("chat to "+x);
-    microgear.chat(x.toString(),"getSinnal");
-    // microgear.publish("/name/"+x, "getSinnal");
-}
-</script>
 
   </body>
 </html>
