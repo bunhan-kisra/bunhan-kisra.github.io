@@ -33,6 +33,8 @@
   const APPSECRET = 'VZ4a6MTsJLdZp8Opv9YKhnlMJ';
 
   var send = false;
+  var mySinnal = '';
+  var idd;
 
 	var microgear = Microgear.create({
 		key: APPKEY,
@@ -42,23 +44,29 @@
 
 	microgear.on('message',function(topic,msg) {
 		document.getElementById("data").innerHTML = msg;
+		if (msg.toString() === 'getSinnal') {
+		    microgear.publish("/video/temp/" + idd, mySinnal);
+        }
 	});
 
 	microgear.on('connected', function() {
-		microgear.setAlias('htmlgear');    /* alias can be renamed anytime with this function */
+		// microgear.setAlias('htmlgear');    /* alias can be renamed anytime with this function */
 		document.getElementById("data").innerHTML = "Now I am connected with netpie...";
-		document.getElementById("myId").innerHTML = Math.random();
+		idd = Math.random().toString()
+		document.getElementById("myId").innerHTML = idd;
+		microgear.setAlias(idd);
 
 		setInterval(function() {
+		    if (mySinnal === '')
 			// microgear.chat("htmlgear","Hello from myself at "+Date.now());
-            var mySinnal = document.getElementById("outgoing").innerText;
-            if (mySinnal !== '' && send === false) {
-                var mid = document.getElementById("myId").value;
-                microgear.publish("/video/temp/"+mid,mySinnal, true);
-                console.log("publish to /video/temp/1");
-                console.log("data length"+mySinnal.length);
-                send = true;
-            }
+            mySinnal = document.getElementById("outgoing").innerText;
+            // if (mySinnal !== '' && send === false) {
+            //     var mid = document.getElementById("myId").value;
+            //     microgear.publish("/video/temp/"+mid,mySinnal, true);
+            //     console.log("publish to /video/temp/1");
+            //     console.log("data length"+mySinnal.length);
+            //     send = true;
+            // }
 		},2000);
 	});
 
@@ -76,6 +84,7 @@
     var x = document.getElementById("myTextarea").value;
     microgear.subscribe("/video/temp/"+x);
     console.log("/video/temp/"+x);
+    microgear.chat(x,"getSinnal");
 }
 </script>
 
