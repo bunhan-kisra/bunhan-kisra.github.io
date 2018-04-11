@@ -89,7 +89,7 @@
     var x = document.getElementById("myTextarea").value;
     microgear.subscribe("/video/temp/"+x);
     console.log("/video/temp/"+x);
-    microgear.chat(x,"getSinnal");
+    microgear.chat(x.toString(),"getSinnal");
 }
 </script>
 
