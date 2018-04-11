@@ -34,12 +34,12 @@
 
   var send = false;
   var mySinnal = '';
-  var idd;
+  var idd = Math.random().toString();
 
 	var microgear = Microgear.create({
 		key: APPKEY,
 		secret: APPSECRET,
-		alias : Math.random().toString()         /*  optional  */
+		alias : idd         /*  optional  */
 	});
 
 	microgear.on('message',function(topic,msg) {
@@ -53,7 +53,7 @@
 	microgear.on('connected', function() {
 		// microgear.setAlias('htmlgear');    /* alias can be renamed anytime with this function */
 		document.getElementById("data").innerHTML = "Now I am connected with netpie...";
-		idd = Math.random().toString()
+		// idd = Math.random().toString()
 		document.getElementById("myId").innerHTML = idd;
 		// microgear.setAlias(idd);
         microgear.subscribe("/name/"+idd);
@@ -89,10 +89,10 @@
 
 	function myFunction() {
     var x = document.getElementById("myTextarea").value;
-    microgear.subscribe("/video/temp/"+x);
-    console.log("/video/temp/"+x);
-    // microgear.chat(x.toString(),"getSinnal");
-        microgear.publish("/name/"+x, "getSinnal");
+    // microgear.subscribe("/video/temp/"+x);
+    console.log("chat to "+x);
+    microgear.chat(x.toString(),"getSinnal");
+    // microgear.publish("/name/"+x, "getSinnal");
 }
 </script>
 
