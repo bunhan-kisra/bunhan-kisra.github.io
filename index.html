@@ -44,6 +44,7 @@
 
 	microgear.on('message',function(topic,msg) {
 		document.getElementById("data").innerHTML = msg;
+		console.log(msg.toString())
 		if (msg.toString() === 'getSinnal') {
 		    microgear.publish("/video/temp/" + idd, mySinnal);
         }
